@@ -1,0 +1,106 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root { --kimi-scale: 1; }   /* piloté par renderer.js (taille du chat) */
+
+html, body {
+  width: 100%; height: 100%;
+  background: transparent;
+  overflow: hidden;
+  -webkit-user-select: none; user-select: none;
+}
+
+#stage {
+  position: absolute; inset: 0;
+  display: flex; align-items: flex-end; justify-content: center;
+}
+
+#kimi {
+  position: relative;
+  width: 100%; height: 100%;
+  display: flex; align-items: flex-end; justify-content: center;
+}
+
+/* Orientation : on retourne le chat selon le sens de marche.
+   (Mets ART_FACES_LEFT à false dans renderer.js si l'orientation est inversée.) */
+.flip #kimi { transform: scaleX(-1); }
+
+/* ---------- Sprite ---------- */
+.sprite {
+  position: relative;
+  image-rendering: pixelated;          /* pixel-art net, pas flou */
+  background-repeat: no-repeat;
+  cursor: grab;
+  filter: drop-shadow(0 3px 2px rgba(40, 30, 80, 0.25));
+}
+
+/* IDLE — Idle.png : 10 frames de 32x32 */
+.sprite.idle, .sprite.drag, .sprite.fall {
+  width: 32px; height: 32px;
+  background-image: url('../sprites/Idle.png');
+  background-size: 320px 32px;
+  transform: scale(calc(3 * var(--kimi-scale)));
+  transform-origin: bottom center;
+  animation: idleAnim 1s steps(10) infinite;
+}
+@keyframes idleAnim { from { background-position-x: 0; } to { background-position-x: -320px; } }
+
+/* DRAG / FALL — chat figé sur la 1re frame d'idle */
+.sprite.drag, .sprite.fall { animation: none; background-position-x: 0; }
+.sprite.drag { transform: scale(calc(3.1 * var(--kimi-scale)), calc(2.9 * var(--kimi-scale))); }   /* léger étirement quand on l'attrape */
+.sprite.fall { transform: scale(calc(3.1 * var(--kimi-scale)), calc(2.8 * var(--kimi-scale))); }
+
+/* WALK — Walking.png : 10 frames de 102x102 (feuille 1024 de large) */
+.sprite.walk {
+  width: 102px; height: 102px;
+  background-image: url('../sprites/Walking.png');
+  background-size: 1024px 102px;
+  transform: scale(1);
+  transform-origin: bottom center;
+  animation: walkAnim 0.7s steps(10) infinite;
+}
+@keyframes walkAnim { from { background-position-x: 0; } to { background-position-x: -1020px; } }
+
+/* SLEEP — IdleInBox.png : 4 frames de 32x32 */
+.sprite.sleep {
+  width: 32px; height: 32px;
+  background-image: url('../sprites/IdleInBox.png');
+  background-size: 128px 32px;
+  transform: scale(calc(3 * var(--kimi-scale)));
+  transform-origin: bottom center;
+  animation: sleepAnim 1.4s steps(4) infinite;
+}
+@keyframes sleepAnim { from { background-position-x: 0; } to { background-position-x: -128px; } }
+
+.state-drag .sprite { cursor: grabbing; }
+
+/* Ombre au sol */
+.shadow {
+  position: absolute;
+  left: 50%; bottom: calc(8px * var(--kimi-scale));
+  width: calc(76px * var(--kimi-scale)); height: calc(13px * var(--kimi-scale));
+  background: radial-gradient(ellipse at center, rgba(40,30,80,0.28), rgba(40,30,80,0) 70%);
+  transform: translateX(-50%);
+  z-index: -1;
+}
+
+/* Bulles de sommeil */
+.zzz {
+  position: absolute; top: calc(30px * var(--kimi-scale)); right: calc(36px * var(--kimi-scale));
+  opacity: 0; pointer-events: none;
+  transform: scale(var(--kimi-scale)); transform-origin: top right;
+}
+.state-sleep .zzz { opacity: 1; }
+.z {
+  position: absolute;
+  font-family: 'Segoe UI', system-ui, sans-serif; font-weight: 700;
+  color: #8b7cf6; text-shadow: 0 1px 2px rgba(255,255,255,0.7);
+}
+.z1 { font-size: 12px; } .z2 { font-size: 16px; left: 8px; } .z3 { font-size: 20px; left: 18px; }
+@keyframes floatz {
+  0%   { transform: translate(0,0) scale(0.6); opacity: 0; }
+  20%  { opacity: 1; }
+  100% { transform: translate(14px,-34px) scale(1); opacity: 0; }
+}
+.state-sleep .z1 { animation: floatz 2.4s ease-out infinite 0s; }
+.state-sleep .z2 { animation: floatz 2.4s ease-out infinite 0.8s; }
+.state-sleep .z3 { animation: floatz 2.4s ease-out infinite 1.6s; }

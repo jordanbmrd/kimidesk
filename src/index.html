@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;" />
+  <link rel="stylesheet" href="styles.css" />
+  <title>Kimi</title>
+</head>
+<body>
+  <div id="stage" class="state-idle">
+    <div id="kimi">
+      <div class="shadow"></div>
+
+      <div class="zzz">
+        <span class="z z1">z</span>
+        <span class="z z2">Z</span>
+        <span class="z z3">z</span>
+      </div>
+
+      <!-- Le sprite : le fond change selon l'état (idle / walk / sleep). -->
+      <div class="sprite idle"></div>
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>
