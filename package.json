@@ -16,6 +16,10 @@
   "build": {
     "appId": "com.kimidesk.mascot",
     "productName": "KimiDesk",
+    "compression": "maximum",
+    "removePackageScripts": true,
+    "electronLanguages": ["fr", "en-US"],
+    "asar": true,
     "win": {
       "target": "portable",
       "signAndEditExecutable": false
@@ -25,7 +29,10 @@
     },
     "files": [
       "src/**/*",
-      "sprites/**/*"
+      "sprites/**/*",
+      "!**/*.map",
+      "!**/{.eslintrc,.editorconfig,.prettierrc,tsconfig.json}",
+      "!**/{README,readme,CHANGELOG,changelog,LICENSE,license}*"
     ]
   }
 }

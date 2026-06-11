@@ -27,3 +27,7 @@ Thumbs.db
 
 # Electron packager cache
 .cache/
+
+
+
+.npmrc

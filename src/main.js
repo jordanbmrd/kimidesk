@@ -73,6 +73,8 @@ function setScale(next) {
   if (win && !win.isDestroyed()) {
     // resizable=false empêche Windows de RÉTRÉCIR la fenêtre : on le réactive le temps du resize.
     win.setResizable(true);
+    win.setMinimumSize(WIN_SIZE, WIN_SIZE);
+    win.setMaximumSize(WIN_SIZE, WIN_SIZE);
     win.setSize(WIN_SIZE, WIN_SIZE);
     win.setResizable(false);
     mascot.x = clampX(mascot.x);
@@ -97,7 +99,11 @@ const mascot = {
 };
 
 function workArea() {
-  return screen.getDisplayNearestPoint(screen.getCursorScreenPoint()).workArea;
+  // On se base sur l'écran où se trouve le chat (centre de la fenêtre),
+  // pas sur le curseur : sinon le sol est mal calculé pendant la chute.
+  const cx = Math.round(mascot.x + WIN_SIZE / 2);
+  const cy = Math.round(mascot.y + WIN_SIZE / 2);
+  return screen.getDisplayNearestPoint({ x: cx, y: cy }).workArea;
 }
 function floorY() {
   const wa = workArea();
@@ -106,6 +112,10 @@ function floorY() {
 function clampX(x) {
   const wa = workArea();
   return Math.max(wa.x, Math.min(wa.x + wa.width - WIN_SIZE, x));
+}
+function clampY(y) {
+  const wa = workArea();
+  return Math.max(wa.y, Math.min(wa.y + wa.height - WIN_SIZE, y));
 }
 
 // --- Boucle logique ---------------------------------------------------------
@@ -133,8 +143,8 @@ function updateIdle() {
 
 function updateDrag() {
   const c = screen.getCursorScreenPoint();
-  const nx = c.x - mascot.grab.dx;
-  const ny = c.y - mascot.grab.dy;
+  const nx = clampX(c.x - mascot.grab.dx);
+  const ny = clampY(c.y - mascot.grab.dy);
   if (mascot.lastCursor) {
     mascot.vx = nx - mascot.x;
     mascot.vy = ny - mascot.y;
@@ -195,7 +205,10 @@ let lastX = null, lastY = null;
 function applyPosition(force) {
   const ix = Math.round(mascot.x), iy = Math.round(mascot.y);
   if (force || ix !== lastX || iy !== lastY) {
-    win.setPosition(ix, iy);
+    // On impose aussi la taille : sur un écran à DPI non entier (ex. 110 %),
+    // setPosition seul fait « gonfler » une fenêtre transparente à chaque frame,
+    // ce qui faisait descendre le chat sous la barre des tâches.
+    win.setBounds({ x: ix, y: iy, width: WIN_SIZE, height: WIN_SIZE });
     lastX = ix; lastY = iy;
   }
 }
@@ -320,6 +333,8 @@ function createWindow() {
   win.setAlwaysOnTop(true, 'screen-saver');
   win.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true });
   win.setIgnoreMouseEvents(true, { forward: true });
+  win.setMinimumSize(WIN_SIZE, WIN_SIZE);
+  win.setMaximumSize(WIN_SIZE, WIN_SIZE);
 
   win.loadFile(path.join(__dirname, 'index.html'));
 
