@@ -5,7 +5,9 @@
   "main": "src/main.js",
   "scripts": {
     "start": "electron .",
-    "dist": "electron-builder --win"
+    "dist": "electron-builder --win",
+    "dist:mac": "electron-builder --mac",
+    "dist:all": "electron-builder --win --mac"
   },
   "author": "",
   "license": "MIT",
@@ -18,14 +20,42 @@
     "productName": "KimiDesk",
     "compression": "maximum",
     "removePackageScripts": true,
-    "electronLanguages": ["fr", "en-US"],
+    "electronLanguages": [
+      "fr",
+      "en-US"
+    ],
     "asar": true,
     "win": {
-      "target": "portable",
+      "target": "nsis",
       "signAndEditExecutable": false
     },
-    "portable": {
-      "artifactName": "KimiDesk.exe"
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "KimiDesk",
+      "artifactName": "KimiDesk-Setup-${version}.exe"
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "arm64",
+            "x64"
+          ]
+        }
+      ],
+      "category": "public.app-category.entertainment",
+      "artifactName": "KimiDesk-${version}-${arch}.${ext}",
+      "extendInfo": {
+        "LSUIElement": true
+      }
+    },
+    "dmg": {
+      "title": "KimiDesk"
     },
     "files": [
       "src/**/*",

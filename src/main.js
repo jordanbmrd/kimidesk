@@ -21,11 +21,11 @@ const MIN_SCALE = 0.5;
 const MAX_SCALE = 2.5;
 const SCALE_STEP = 0.15;
 const SIZE_PRESETS = [
-  { label: 'Mini',   value: 0.6 },
-  { label: 'Petit',  value: 0.8 },
+  { label: 'Mini', value: 0.6 },
+  { label: 'Petit', value: 0.8 },
   { label: 'Normal', value: 1.0 },
-  { label: 'Grand',  value: 1.4 },
-  { label: 'Géant',  value: 2.0 },
+  { label: 'Grand', value: 1.4 },
+  { label: 'Géant', value: 2.0 },
 ];
 
 let scale = 1;
@@ -121,9 +121,9 @@ function clampY(y) {
 // --- Boucle logique ---------------------------------------------------------
 function tick() {
   switch (mascot.state) {
-    case 'idle':  updateIdle(); break;
-    case 'drag':  updateDrag(); break;
-    case 'fall':  updateFall(); break;
+    case 'idle': updateIdle(); break;
+    case 'drag': updateDrag(); break;
+    case 'fall': updateFall(); break;
     case 'sleep': updateSleep(); break;
   }
   applyPosition();
@@ -189,7 +189,7 @@ function setState(next) {
     sendState();
   }
 }
-function enterIdle()  { mascot.timer = 1500 + Math.random() * 4000; setState('idle'); }
+function enterIdle() { mascot.timer = 1500 + Math.random() * 4000; setState('idle'); }
 function enterSleep() { mascot.timer = 6000 + Math.random() * 8000; setState('sleep'); }
 
 function sendState() {
@@ -351,6 +351,8 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+  // macOS : c'est une mascotte de bureau → on la sort du Dock (app « agent »).
+  if (process.platform === 'darwin' && app.dock) app.dock.hide();
   loadSettings();
   createWindow();
   buildTray();
