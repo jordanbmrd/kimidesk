@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>KimiDesk — une petite mascotte sur ton bureau</title>
-<meta name="description" content="Kimi, un petit chat pixel-art qui vit en permanence sur ton bureau Windows. Open source, gratuit, et adorable." />
+<meta name="description" content="Kimi, un petit chat pixel-art qui vit en permanence sur ton bureau Windows ou macOS. Open source, gratuit, et adorable." />
 <link rel="icon" href="assets/Idle.png" type="image/png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -66,8 +66,12 @@ h1 em{font-style:normal;color:var(--purple-deep)}
 .btn-ghost{background:#fff;box-shadow:5px 5px 0 var(--line)}
 .btn-ghost:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--line)}
 .btn svg{width:18px;height:18px}
-.meta-line{display:flex;gap:18px;margin-top:20px;font-size:13px;color:var(--ink-soft)}
+.meta-line{display:flex;gap:18px;margin-top:20px;font-size:13px;color:var(--ink-soft);flex-wrap:wrap}
 .meta-line b{color:var(--ink);font-weight:600}
+.platforms{display:flex;align-items:center;gap:10px;margin-top:16px;font-size:13.5px;color:var(--ink-soft);flex-wrap:wrap}
+.platforms a{display:inline-flex;align-items:center;gap:6px;color:var(--ink);font-weight:500;border-bottom:1px solid transparent;transition:border-color .12s,color .12s}
+.platforms a:hover{color:var(--purple-deep);border-bottom-color:var(--purple-deep)}
+.platforms svg{width:14px;height:14px}
 
 /* STAGE — Kimi vivant */
 .stage-card{position:relative;min-height:380px;background:radial-gradient(120% 90% at 80% 0%,#fff,var(--cream-2) 65%);border:1.5px solid var(--ink);border-radius:20px;box-shadow:8px 8px 0 var(--ink);overflow:hidden}
@@ -124,24 +128,35 @@ footer a{color:var(--purple-deep);font-weight:600}
 <header id="top">
   <div class="wrap hero-grid">
     <div>
-      <span class="eyebrow"><span class="dot"></span>Compagnon de bureau · Windows</span>
+      <span class="eyebrow"><span class="dot"></span>Compagnon de bureau · Windows &amp; macOS</span>
       <h1>Un petit chat sur ton <em>bureau.</em></h1>
       <p class="lead">Kimi se pose en bas de ton écran, somnole dans son carton, et se laisse attraper à la souris. Toujours là, jamais dans le chemin.</p>
       <div class="cta-row">
-        <a class="btn btn-main" href="https://github.com/jordanbmrd/kimidesk/releases/latest" target="_blank" rel="noopener">
+        <a class="btn btn-main" id="dl-main" href="https://github.com/jordanbmrd/kimidesk/releases/latest" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 19h16"/></svg>
-          Télécharger l'.exe
+          <span id="dl-label">Télécharger</span>
         </a>
         <a class="btn btn-ghost" href="https://github.com/jordanbmrd/kimidesk" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-.88-.01-1.73-2.78.62-3.37-1.37-3.37-1.37-.46-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.91 0 1.38-.01 2.49-.01 2.83 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
           Voir le code
         </a>
       </div>
-      <div class="meta-line"><span>✦ <b>Gratuit</b> &amp; open source</span><span>✦ <b>~70 Mo</b> portable</span><span>✦ <b>MIT</b></span></div>
+      <div class="platforms">
+        <a href="https://github.com/jordanbmrd/kimidesk/releases/latest" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.5 10.5 4.5v7.5H3V5.5Zm0 13L10.5 19.5V12H3v6.5Zm8.5 1.5L21 21V12h-9.5v8Zm0-16L21 3v9h-9.5V4Z"/></svg>
+          Windows (.exe)
+        </a>
+        <span>·</span>
+        <a href="https://github.com/jordanbmrd/kimidesk/releases/latest" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 13c.04-2.93 2.4-4.34 2.5-4.4-1.36-1.99-3.48-2.26-4.23-2.29-1.8-.18-3.51 1.06-4.42 1.06-.92 0-2.32-1.04-3.81-1.01-1.96.03-3.77 1.14-4.78 2.89-2.04 3.54-.52 8.78 1.46 11.66.97 1.41 2.12 2.99 3.63 2.93 1.46-.06 2.01-.94 3.78-.94 1.76 0 2.26.94 3.81.91 1.57-.03 2.56-1.43 3.52-2.86 1.11-1.64 1.57-3.23 1.59-3.32-.04-.02-3.05-1.17-3.08-4.63ZM13.6 4.41c.8-.97 1.34-2.32 1.19-3.66-1.15.05-2.54.77-3.37 1.74-.74.86-1.39 2.24-1.22 3.55 1.29.1 2.6-.66 3.4-1.63Z"/></svg>
+          macOS (.dmg)
+        </a>
+      </div>
+      <div class="meta-line"><span>✦ <b>Gratuit</b> &amp; open source</span><span>✦ <b>~90 Mo</b></span><span>✦ <b>MIT</b></span></div>
     </div>
 
     <div class="stage-card">
-      <div class="bar"><i></i><i></i><i></i><span>kimi.exe</span></div>
+      <div class="bar"><i></i><i></i><i></i><span>KimiDesk</span></div>
       <div class="playground">
         <div class="ground"></div>
         <div id="kimi"><div class="zzz"><b>z</b><b>z</b><b>z</b></div><div class="spr"></div><div class="shadow"></div></div>
@@ -177,6 +192,21 @@ footer a{color:var(--purple-deep);font-weight:600}
     },10000);
   }
   cycle();
+})();
+
+/* CTA "Télécharger" adapté à la plateforme de l'utilisateur. */
+(function(){
+  const label=document.getElementById('dl-label');
+  if(!label) return;
+  const ua=navigator.userAgent||'';
+  const platform=(navigator.userAgentData&&navigator.userAgentData.platform)||navigator.platform||'';
+  if(/Mac|iPhone|iPad|iPod/i.test(platform)||/Mac OS X|Macintosh/i.test(ua)){
+    label.textContent='Télécharger pour macOS';
+  }else if(/Win/i.test(platform)||/Windows/i.test(ua)){
+    label.textContent='Télécharger pour Windows';
+  }else{
+    label.textContent='Télécharger';
+  }
 })();
 </script>
 </body>
