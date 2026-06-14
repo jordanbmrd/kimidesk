@@ -1,6 +1,6 @@
 {
   "name": "kimidesk",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Kimi — une petite mascotte qui se balade sur ton bureau Windows.",
   "main": "src/main.js",
   "scripts": {
