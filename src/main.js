@@ -247,7 +247,13 @@ ipcMain.on('drag:start', () => {
   mascot.vx = 0; mascot.vy = 0;
   setState('drag');
 });
-ipcMain.on('drag:end', () => { if (mascot.state === 'drag') setState('fall'); });
+ipcMain.on('drag:end', () => {
+  if (mascot.state === 'drag') {
+    mascot.vx = 0;
+    mascot.vy = 0;
+    setState('fall');
+  }
+});
 ipcMain.on('mascot:menu', () => showMascotMenu());
 
 // --- Masquer / Afficher -----------------------------------------------------

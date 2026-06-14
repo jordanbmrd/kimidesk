@@ -6,12 +6,13 @@
   "scripts": {
     "start": "electron .",
     "dist": "electron-builder --win",
-    "dist:mac": "electron-builder --mac",
-    "dist:all": "electron-builder --win --mac"
+    "dist:mac": "dotenv -e .env.local -- electron-builder --mac",
+    "dist:all": "dotenv -e .env.local -- electron-builder --win --mac"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "dotenv-cli": "^11.0.0",
     "electron": "^33.0.0",
     "electron-builder": "^25.0.0"
   },
@@ -50,6 +51,12 @@
       ],
       "category": "public.app-category.entertainment",
       "artifactName": "KimiDesk-${version}-${arch}.${ext}",
+      "identity": "Jordan Baumard (45UT9NM457)",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist",
+      "notarize": true,
       "extendInfo": {
         "LSUIElement": true
       }
