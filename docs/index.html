@@ -121,7 +121,7 @@ footer a{color:var(--purple-deep);font-weight:600}
 <nav>
   <div class="wrap nav-in">
     <a class="brand" href="#top"><span class="brand-cat"></span><span class="brand-name">Kimi<b>Desk</b></span></a>
-    <a class="nav-cta" id="dl-nav" href="#" rel="noopener">↓ Télécharger</a>
+    <a class="nav-cta" id="dl-nav" href="https://github.com/jordanbmrd/kimidesk/releases/latest" rel="noopener">↓ Télécharger</a>
   </div>
 </nav>
 
@@ -131,7 +131,7 @@ footer a{color:var(--purple-deep);font-weight:600}
       <h1>Un petit chat sur ton <em>bureau.</em></h1>
       <p class="lead">Kimi se pose en bas de ton écran, somnole dans son carton, et se laisse attraper à la souris. Toujours là, jamais dans le chemin.</p>
       <div class="cta-row">
-        <a class="btn btn-main" id="dl-main" href="#" rel="noopener">
+        <a class="btn btn-main" id="dl-main" href="https://github.com/jordanbmrd/kimidesk/releases/latest" rel="noopener">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 19h16"/></svg>
           <span id="dl-label">Télécharger</span>
         </a>
@@ -141,12 +141,12 @@ footer a{color:var(--purple-deep);font-weight:600}
         </a>
       </div>
       <div class="platforms">
-        <a id="dl-win" href="#" rel="noopener">
+        <a id="dl-win" href="https://github.com/jordanbmrd/kimidesk/releases/latest" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.5 10.5 4.5v7.5H3V5.5Zm0 13L10.5 19.5V12H3v6.5Zm8.5 1.5L21 21V12h-9.5v8Zm0-16L21 3v9h-9.5V4Z"/></svg>
           Windows (.exe)
         </a>
         <span>·</span>
-        <a id="dl-mac" href="#" rel="noopener">
+        <a id="dl-mac" href="https://github.com/jordanbmrd/kimidesk/releases/latest" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 13c.04-2.93 2.4-4.34 2.5-4.4-1.36-1.99-3.48-2.26-4.23-2.29-1.8-.18-3.51 1.06-4.42 1.06-.92 0-2.32-1.04-3.81-1.01-1.96.03-3.77 1.14-4.78 2.89-2.04 3.54-.52 8.78 1.46 11.66.97 1.41 2.12 2.99 3.63 2.93 1.46-.06 2.01-.94 3.78-.94 1.76 0 2.26.94 3.81.91 1.57-.03 2.56-1.43 3.52-2.86 1.11-1.64 1.57-3.23 1.59-3.32-.04-.02-3.05-1.17-3.08-4.63ZM13.6 4.41c.8-.97 1.34-2.32 1.19-3.66-1.15.05-2.54.77-3.37 1.74-.74.86-1.39 2.24-1.22 3.55 1.29.1 2.6-.66 3.4-1.63Z"/></svg>
           macOS (.dmg)
         </a>
@@ -224,7 +224,7 @@ footer a{color:var(--purple-deep);font-weight:600}
   }
 
   fetch('https://api.github.com/repos/jordanbmrd/kimidesk/releases/latest')
-    .then(r=>r.ok?r.json():Promise.reject(new Error('release-not-found')))
+    .then(r=>r.ok?r.json():Promise.reject(new Error('Failed to fetch GitHub latest release')))
     .then(release=>{
       const assets=Array.isArray(release.assets)?release.assets:[];
       const winUrl=pickAsset(assets,/\.exe$/i);
